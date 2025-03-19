@@ -1,0 +1,23 @@
+{
+  "name": "cloudflare-email-worker-to-webhook",
+  "version": "1.0.0",
+  "description": "A worker for Cloudflare email routing that sends all emails to a webhook.",
+  "main": "worker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cloudflare",
+    "worker",
+    "email",
+    "routing"
+  ],
+  "author": "gvcayetano",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "postal-mime": "^2.4.3"
+  }
+}
