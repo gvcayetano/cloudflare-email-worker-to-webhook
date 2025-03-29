@@ -1,3 +1,4 @@
 .wrangler
+licenses.json
 node_modules
 wrangler.toml
