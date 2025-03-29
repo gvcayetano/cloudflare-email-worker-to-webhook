@@ -13,15 +13,16 @@ export default {
         headers: headers,
         htmlBody: email.html,
       };
-
-      await fetch(env.WEBHOOK_URL, {
+      
+      return await fetch(env.WEBHOOK_URL, {
         method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
         body: JSON.stringify(payload),
       });
-
-      return new Response("Email pushed to webhook successfully!", {
-        status: 200,
-      });
+      
     } catch (exception) {
       const message = "Error failed to push to webhook:";
       console.error(message, exception);
@@ -35,7 +36,23 @@ export default {
       );
     }
   },
-  async fetch(request) {
-    return new Response("Hello from my Worker!");
+  async fetch(request, env, ctx) {
+    const isDebugMode = env.DEBUG_MODE === "true";
+
+    console.log("Fetch event is on debug mode:", isDebugMode);
+    if (isDebugMode){
+      if (request.method === "POST") 
+        {
+        try {
+          const emailData = await request.json();
+          console.log("Received email data:", emailData);
+          return await this.email(emailData, env, ctx);
+        } catch (error) {
+          console.error(error);
+          return new Response("Invalid JSON", { status: 400 });
+        }
+      }
+    }
+    return new Response("Hello from Worker", { status: 200 });
   },
 };
