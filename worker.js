@@ -1,3 +1,6 @@
+// Copyright (c) 2025 gvcayetano
+// This software is licensed under the MIT License.
+
 // for postal-mime, thanks to https://docs.emailengine.app/how-to-parse-emails-with-cloudflare-email-workers/
 import PostalMime from "postal-mime";
 
