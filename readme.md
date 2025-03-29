@@ -47,6 +47,11 @@ Example payload:
 }
 ```
 
+# Debugging (Windows)
+1. Make sure `.dev.vars` has `DEBUG_MODE` set to `true` and `WEBHOOK_URL` pointing to your receiving endpoint.
+1. Run `debug.bat`.
+1. Run `sendEmail.bat`.
+
 # Deployment (Windows)
 
 1. Run `login.bat`.

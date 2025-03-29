@@ -1,0 +1,1 @@
+curl -X POST "http://127.0.0.1:8787" -H "Content-Type: application/json" -d "{ \"from\": \"sender@example.com\", \"to\": \"recipient@example.com\", \"text\": \"Hello, this is a test email.\", \"raw\": \"egg\", \"headers\": { \"X-Test-Header\": \"test\", \"subject\": \"Test Email\" } }"
