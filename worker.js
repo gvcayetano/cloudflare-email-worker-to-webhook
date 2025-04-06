@@ -7,22 +7,32 @@ import PostalMime from "postal-mime";
 export default {
   async email(message, env, ctx) {
     try {
-      const { to, from, headers } = message;
+      const isDebugMode = env.DEBUG_MODE === "true";
+      const { to, from } = message;
       const email = await PostalMime.parse(message.raw);
+      const { subject, html: htmlBody, date: receivedAt } = email;
+      const payload = { to, from, subject, htmlBody, receivedAt };
 
-      const payload = {
-        to: to,
-        from: from,
-        headers: headers,
-        htmlBody: email.html,
-      };
+      const headers = new Headers({
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      });
       
+      const apiKey = env.WEBHOOK_API_KEY;
+      if (apiKey) {
+        headers.append("Authorization", `Bearer ${apiKey}`);
+      }
+
+      if (isDebugMode) {
+        console.log(payload);
+        for (const [key, value] of headers.entries()) {
+          console.log(`${key}: ${value}`);
+        }
+      }
+
       return await fetch(env.WEBHOOK_URL, {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
+        headers: headers,
         body: JSON.stringify(payload),
       });
       
