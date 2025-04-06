@@ -27,8 +27,9 @@ v8.12.0
    - **WEBHOOK_URL** – The URL of your webhook that accepts a `POST` request with the following payload:
      - `to`
      - `from`
-     - `headers`
+     - `subject`
      - `htmlBody`
+     - `receivedAt`
 
 # Usage
 
@@ -40,10 +41,9 @@ Example payload:
 {
   "to": "recipient@example.com",
   "from": "sender@example.com",
-  "headers": {
-    "subject": "Test Email"
-  },
-  "htmlBody": "<p>This is a test email.</p>"
+  "subject": "Test Email",
+  "htmlBody": "<p>This is a test email.</p>",
+  "receivedAt": ""
 }
 ```
 
