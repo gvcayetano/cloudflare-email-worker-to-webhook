@@ -5,33 +5,36 @@ A worker script that posts/forwards all emails to a webhook.
 At the time of writing, the Node.js version used was:
 
 ```
-v8.12.0
+v22.16.0
 ```
 
 # Prerequisites
 
-- Node.js v8.12.0 or later
-- npm (comes with Node.js)
+- Node.js (using a node version manager is recommended)
 - A Cloudflare account
 - A webhook URL that can accept `POST` requests
 
 # Setup
 
 1. Install dependencies:
-   ```
-   npm install
-   ```
-2. Rename `wrangler.toml.sample` to `wrangler.toml`.
+  ```
+  npm install
+  ```
+2. Copy `wrangler.toml.sample` and rename it to `wrangler.toml`.
 3. Configure the following in `wrangler.toml`:
-   - **name** – The name of your email worker on Cloudflare.
-   - **WEBHOOK_API_KEY** – An optional authorization key to your webhook.
-   - **WEBHOOK_URL** – The URL of your webhook that accepts a `POST` request 
-   with the following payload:
-     - `to`
-     - `from`
-     - `subject`
-     - `htmlBody`
-     - `receivedAt`
+  - **name** – The name of your email worker on Cloudflare.
+  - **WEBHOOK_URL** – The URL of your webhook that accepts a `POST` request 
+    with the following payload:
+    - `to`
+    - `from`
+    - `subject`
+    - `htmlBody`
+    - `receivedAt`
+    
+# Optional
+
+If your webhook supports API token checks, use
+`setWebhookApiKey.ps1` to store the `WEBHOOK_API_KEY` secret.
 
 # Usage
 
@@ -49,16 +52,21 @@ Example payload:
 }
 ```
 
-# Debugging (Windows)
+# Working with macOS
+
+To make it easier to remember the commands, you can install PowerShell and add execute permissions for all `.ps1` files. You can also run `chmod +x plus-x-all-ps1.sh` and execute it to set permissions automatically.
+
+# Debugging
+
 1. Make sure `.dev.vars` has `DEBUG_MODE` set to `true` and `WEBHOOK_URL` pointing to your receiving endpoint.
-1. Optional `WEBHOOK_API_KEY` 
-1. Run `debug.bat`.
-1. Send emails locally using `sendEmail.http`.
+2. Optionally set `WEBHOOK_API_KEY`.
+3. Run `run-dev.ps1`.
+4. Send fake emails locally using `sendEmail.http` (requires the REST Client extension for VS Code).
 
-# Deployment (Windows)
+# Deployment
 
-1. Run `login.bat`.
-2. Run `deploy.bat`.
+1. Run `login.ps1` (this will open a browser and prompt you to log in with your Cloudflare account).
+2. Run `deploy.ps1`.
 
 # License
 
