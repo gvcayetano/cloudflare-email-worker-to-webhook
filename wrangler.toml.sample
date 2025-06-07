@@ -8,5 +8,4 @@ head_sampling_rate = 1 # optional. default = 1.
 
 [vars]
 DEBUG_MODE = "false"
-WEBHOOK_API_KEY = ""
 WEBHOOK_URL = ""
